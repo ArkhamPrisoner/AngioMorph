@@ -1,0 +1,19 @@
+{
+  "analysis_dir": "3d/outputs_graph_analysis/manual_all",
+  "output_dir": "3d/outputs_graph_analysis/patient_context",
+  "patients": 5,
+  "images": 297,
+  "series_sequences": 13,
+  "projection_rows": 10,
+  "plots": [
+    "3d/outputs_graph_analysis/patient_context/p0001_temporal_curves.png",
+    "3d/outputs_graph_analysis/patient_context/p0003_temporal_curves.png",
+    "3d/outputs_graph_analysis/patient_context/p0004_temporal_curves.png",
+    "3d/outputs_graph_analysis/patient_context/p0005_temporal_curves.png",
+    "3d/outputs_graph_analysis/patient_context/p0006_temporal_curves.png",
+    "3d/outputs_graph_analysis/patient_context/projection_anatomy_score.png",
+    "3d/outputs_graph_analysis/patient_context/projection_bifurcation_crossing.png",
+    "3d/outputs_graph_analysis/patient_context/canonical_coronary_topology.png"
+  ],
+  "report_path": "3d/outputs_graph_analysis/patient_context/patient_context_report.md"
+}

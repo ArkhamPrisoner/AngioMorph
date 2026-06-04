@@ -1,0 +1,8 @@
+{
+  "sequences": 13,
+  "summary_csv": "3d/outputs_graph_analysis/temporal_junctions/temporal_junction_summary.csv",
+  "report": "3d/outputs_graph_analysis/temporal_junctions/temporal_junction_report.md",
+  "max_dist_px": 18.0,
+  "max_frame_gap": 4,
+  "min_support": 3
+}

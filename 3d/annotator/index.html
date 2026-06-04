@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Разметчик ангиографии</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <aside class="sidebar">
+        <div class="panel">
+          <h1>Разметчик ангиографии</h1>
+          <p id="dataset-name" class="muted"></p>
+        </div>
+
+        <div class="panel">
+          <label for="series-select">Серия</label>
+          <select id="series-select"></select>
+
+          <label for="frame-select">Кадр</label>
+          <select id="frame-select"></select>
+
+          <div class="row">
+            <button id="prev-frame" type="button">Назад</button>
+            <button id="next-frame" type="button">Вперёд</button>
+          </div>
+          <p id="frame-meta" class="muted"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Тип метки</h2>
+          <div id="type-buttons" class="type-list"></div>
+          <label>Форма метки</label>
+          <div id="shape-buttons" class="shape-list"></div>
+          <p id="draft-status" class="muted">Текущий инструмент</p>
+          <p class="muted">`1-4` тип, `Q/W/E` форма, `Ctrl+Z` отмена, `Ctrl+Shift+Z` повтор</p>
+        </div>
+
+        <div class="panel">
+          <h2>Отображение</h2>
+          <label class="inline">
+            <input id="show-mask" type="checkbox" checked />
+            Маска
+          </label>
+          <label for="mask-opacity">Прозрачность маски</label>
+          <input id="mask-opacity" type="range" min="0" max="100" value="45" />
+          <p class="muted">Колесо мыши: масштаб. Правая кнопка или `Shift+drag`: панорама.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Выбранная метка</h2>
+          <p id="selected-status" class="muted">Ничего не выбрано</p>
+          <label for="annotation-note">Комментарий</label>
+          <textarea id="annotation-note" rows="4" placeholder="Комментарий для спорного места, стеноза, пересечения..."></textarea>
+          <div class="row">
+            <button id="apply-changes" type="button">Применить</button>
+            <button id="delete-annotation" type="button" class="danger">Удалить</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>История и сохранение</h2>
+          <div class="row">
+            <button id="undo-button" type="button">Отменить</button>
+            <button id="redo-button" type="button">Повторить</button>
+          </div>
+          <div class="row">
+            <button id="save-all" type="button" class="primary">Сохранить JSON</button>
+            <button id="reload-all" type="button">Перезагрузить</button>
+          </div>
+          <p id="save-status" class="muted">Изменений нет</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="canvas-toolbar">
+          <span id="cursor-status" class="muted">x: -, y: -</span>
+        </div>
+        <canvas id="viewer"></canvas>
+        <div class="annotation-panel">
+          <h2>Метки кадра</h2>
+          <div id="annotation-list" class="annotation-list"></div>
+        </div>
+      </main>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
