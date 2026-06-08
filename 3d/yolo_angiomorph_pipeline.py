@@ -13,7 +13,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), '3d'))
 from analyze_coronary_graph import analyze_graph 
 
 def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_dir="temp_pipeline", fps=10):
-    print(f"🚀 Запуск пайплайна для папки: {input_dir}")
+    print(f"Запуск пайплайна для папки: {input_dir}")
     
     # 1. Подготовка папок
     temp_dir = Path(temp_dir)
@@ -29,7 +29,7 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
     image_files = sorted([f for f in os.listdir(input_dir) if f.lower().endswith(valid_extensions)])
     
     if not image_files:
-        print(f"❌ В папке {input_dir} не найдено изображений!")
+        print(f"В папке {input_dir} не найдено изображений!")
         return
         
     print(f"Найдено изображений для обработки: {len(image_files)}")
@@ -44,7 +44,7 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
         frame = cv2.imread(img_path_src)
         
         if frame is None:
-            print(f"⚠️ Не удалось прочитать изображение: {img_name}")
+            print(f"Не удалось прочитать изображение: {img_name}")
             continue
             
         height, width = frame.shape[:2]
@@ -71,10 +71,10 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
         # --- Запуск AngioMorph ---
         try:
             analyze_graph(
-                image_path=img_path,       # Убрали str(), передаем объект Path
-                mask_path=mask_path,       # Убрали str(), передаем объект Path
-                output_dir=overlay_dir,    # Убрали str(), передаем объект Path
-                name=img_path.stem         # <-- ДОБАВЛЕН НЕДОСТАЮЩИЙ АРГУМЕНТ (имя без расширения)
+                image_path=img_path,     
+                mask_path=mask_path,      
+                output_dir=overlay_dir,   
+                name=img_path.stem     
             )
         except Exception as e:
             print(f"Ошибка AngioMorph на кадре {img_name}: {e}")
@@ -90,7 +90,7 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
     overlay_files = sorted(list(overlay_dir.glob("*.png")))
     
     if not overlay_files:
-        print("❌ AngioMorph не сгенерировал ни одного overlay-кадра. Видео не собрано.")
+        print("AngioMorph не сгенерировал ни одного overlay-кадра. Видео не собрано.")
         return
         
     # Ищем первый нормально читаемый кадр, чтобы узнать размер
@@ -102,7 +102,7 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
             break
             
     if first_overlay is None:
-        print(f"❌ Ни один из {len(overlay_files)} сгенерированных кадров не удалось прочитать библиотекой OpenCV.")
+        print(f"Ни один из {len(overlay_files)} сгенерированных кадров не удалось прочитать библиотекой OpenCV.")
         return
         
     height, width = first_overlay.shape[:2]
@@ -117,16 +117,16 @@ def create_image_pipeline(input_dir, yolo_weights_path, output_video_path, temp_
             out.write(img)
             valid_count += 1
         else:
-            print(f"⚠️ Пропущен битый кадр: {ov_path.name}")
+            print(f"Пропущен битый кадр: {ov_path.name}")
             
     out.release()
-    print(f"🎉 Готово! Итоговое видео ({valid_count} кадров из {len(overlay_files)}) сохранено в: {output_video_path}")
+    print(f"Готово! Итоговое видео ({valid_count} кадров из {len(overlay_files)}) сохранено в: {output_video_path}")
 
 # --- Запуск ---
 if __name__ == "__main__":
     create_image_pipeline(
-        input_dir="/home/yaroslav-demkin/patient/22_crop",           # Ваша папка со снимками
-        yolo_weights_path="/home/yaroslav-demkin/ddmp/best.pt",  # Замените на путь к вашим весам
+        input_dir="PATH",           # Ваша папка со снимками
+        yolo_weights_path="best.pt",  # Замените на путь к вашим весам
         output_video_path="final_angiogram_analysis.mp4", # Куда сохранить видео
         fps=10  # Скорость видео (кадров в секунду)
     )
